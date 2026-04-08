@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArtQuest 250 — Master Art History</title>
+<meta name="description" content="The ultimate art history study game. Master all 250 essential works with boss battles, analysis questions, and gamified learning.">
+<meta property="og:title" content="ArtQuest 250 — Master Art History">
+<meta property="og:description" content="Gamified study tool for the 250 essential art history works. Boss battles, flashcards, and exam-style analysis questions.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css?v=1">
+<style>
+/* Landing page styles */
+.landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 50%,#0a1a2e 100%)}
+.landing .logo{font-size:3.2rem;margin-bottom:0}
+.landing .tagline{color:var(--text2);font-size:1.1rem;max-width:500px;margin:10px auto 30px;line-height:1.6}
+.landing .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;max-width:700px;margin:20px auto 30px;text-align:left}
+.landing .feat{background:var(--card);border-radius:var(--radius);padding:16px;border:1px solid #222}
+.landing .feat h4{margin-bottom:5px;font-size:.95rem}
+.landing .feat p{color:var(--text2);font-size:.82rem;line-height:1.4}
+.landing .cta-group{display:flex;flex-direction:column;gap:12px;align-items:center;margin:20px 0}
+.landing .btn.cta{padding:16px 40px;font-size:1.15rem;background:linear-gradient(135deg,#e94560,#c0392b);border-radius:30px;font-weight:700;letter-spacing:.5px}
+.landing .btn.cta:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(233,69,96,.4)}
+.landing .btn.demo{padding:12px 30px;font-size:.95rem;background:transparent;border:2px solid #444;border-radius:30px;color:var(--text2)}
+.landing .btn.demo:hover{border-color:var(--accent);color:var(--text)}
+.landing .social-proof{color:var(--text3);font-size:.8rem;margin-top:20px}
+.landing .price{font-size:2rem;font-weight:700;color:var(--gold);margin:5px 0}
+.landing .price-note{color:var(--text2);font-size:.85rem}
+.landing .preview-grid{display:flex;gap:8px;justify-content:center;margin:20px 0;flex-wrap:wrap}
+.landing .preview-grid img{width:80px;height:60px;object-fit:cover;border-radius:6px;border:2px solid #333;transition:.3s}
+.landing .preview-grid img:hover{border-color:var(--accent);transform:scale(1.1)}
+
+/* Credits page */
+.credits-page{max-width:800px;margin:0 auto;padding:40px 20px}
+.credits-page h2{font-family:'Cinzel',serif;margin-bottom:20px}
+.credits-page p,.credits-page li{color:var(--text2);font-size:.88rem;line-height:1.6}
+.credits-page a{color:var(--accent)}
+.credits-section{background:var(--card);border-radius:var(--radius);padding:20px;margin:15px 0}
+
+/* Gate overlay */
+.gate-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px}
+.gate-box{background:var(--card);border-radius:var(--radius);padding:40px;text-align:center;max-width:450px}
+.gate-box h2{font-family:'Cinzel',serif;margin-bottom:10px}
+.gate-box p{color:var(--text2);margin:10px 0}
+.gate-box .btn{margin:10px 5px}
+.gate-overlay.hidden{display:none}
+</style>
+</head>
+<body>
+
+<!-- LANDING PAGE (shown to non-authenticated visitors) -->
+<div id="screen-landing" class="screen landing active">
+  <h1 class="logo">ARTQUEST 250</h1>
+  <h2 class="subtitle">Master Art History</h2>
+  <p class="tagline">The gamified way to learn all 250 essential art history works. Boss battles, analysis questions, flashcards, and a progression system that actually makes you remember.</p>
+
+  <div class="preview-grid" id="landing-previews"></div>
+
+  <div class="features">
+    <div class="feat"><h4>250 Works</h4><p>Every essential artwork with images, facts, dates, artists, and cultural context.</p></div>
+    <div class="feat"><h4>Boss Battles</h4><p>Fight themed bosses at the end of each unit. Timed questions, bonus damage for streaks.</p></div>
+    <div class="feat"><h4>Exam-Style Questions</h4><p>Symbolism, context, function, patronage — the analysis questions that actually appear on exams.</p></div>
+    <div class="feat"><h4>Double-Pass Mastery</h4><p>Must pass each level twice in a row with 80%+ to prove you really know it.</p></div>
+    <div class="feat"><h4>Study Flashcards</h4><p>Flip cards with all details. Shuffle, filter by unit, keyboard shortcuts.</p></div>
+    <div class="feat"><h4>Progress Tracking</h4><p>Coins, stars, streaks, mastery percentages, and a full collection gallery.</p></div>
+  </div>
+
+  <div class="cta-group">
+    <div class="price">$8</div>
+    <div class="price-note">One-time purchase. Lifetime access. No subscriptions.</div>
+    <button class="btn cta" onclick="Paywall.purchase()">Get Full Access</button>
+    <button class="btn demo" onclick="Paywall.startDemo()">Try Unit 1 Free</button>
+  </div>
+  <p class="social-proof">Study smarter, not harder.</p>
+</div>
+
+<!-- SCREENS (game screens — same as before) -->
+<div id="screen-loading" class="screen">
+  <div class="center-col">
+    <h1 class="logo">ARTQUEST 250</h1>
+    <h2 class="subtitle">Master Art History</h2>
+    <div class="load-bar-wrap"><div class="load-bar" id="load-bar"></div></div>
+    <p id="load-text">Loading masterpieces...</p>
+  </div>
+</div>
+
+<div id="screen-menu" class="screen">
+  <div class="center-col">
+    <h1 class="logo">ARTQUEST 250</h1>
+    <h2 class="subtitle">Master Art History</h2>
+    <div class="top-stats" id="menu-stats"></div>
+    <div class="menu-btns">
+      <button class="btn primary big" onclick="UI.go('units')">⚔️ Campaign</button>
+      <button class="btn secondary big" onclick="UI.go('study')">📖 Study Mode</button>
+      <button class="btn secondary big" onclick="UI.go('shop')">🛒 Shop</button>
+      <button class="btn secondary big" onclick="UI.go('collection')">🖼️ Collection</button>
+      <button class="btn accent big" onclick="UI.go('stats')">📊 Stats</button>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:15px">
+      <button class="btn secondary" onclick="UI.go('credits')" style="font-size:.8rem">📜 Credits</button>
+      <button class="btn secondary" onclick="Paywall.showUpgrade()" id="upgrade-btn" style="font-size:.8rem;display:none">⭐ Unlock All Units</button>
+    </div>
+    <p class="tip">Master all 250 works. Pass each level twice to prove mastery.</p>
+  </div>
+</div>
+
+<div id="screen-units" class="screen">
+  <div class="scr-head">
+    <button class="btn back" onclick="UI.go('menu')">← Back</button>
+    <h2>Campaign Map</h2>
+    <div class="coins-display" id="units-coins"></div>
+  </div>
+  <div class="units-grid" id="units-grid"></div>
+</div>
+
+<div id="screen-levels" class="screen">
+  <div class="scr-head">
+    <button class="btn back" onclick="UI.go('units')">← Back</button>
+    <h2 id="levels-title">Levels</h2>
+    <div class="coins-display" id="levels-coins"></div>
+  </div>
+  <div class="level-banner" id="level-banner"></div>
+  <div class="levels-grid" id="levels-grid"></div>
+</div>
+
+<div id="screen-quiz" class="screen">
+  <div class="quiz-top">
+    <div class="q-prog-wrap"><div class="q-prog" id="q-prog"></div></div>
+    <div class="q-stats">
+      <span id="q-count">1/10</span>
+      <span id="q-score">Score: 0</span>
+      <span id="q-streak">🔥 0</span>
+      <span id="q-timer" class="hidden">⏱ 30</span>
+    </div>
+  </div>
+  <div class="quiz-body">
+    <div class="q-img-wrap" id="q-img-wrap">
+      <img id="q-img" src="" alt="Artwork">
+      <div class="img-placeholder" id="img-placeholder">🎨</div>
+    </div>
+    <div class="q-text" id="q-text"></div>
+    <div class="q-options" id="q-options"></div>
+    <div class="q-feedback" id="q-feedback"></div>
+    <div class="q-powers" id="q-powers"></div>
+  </div>
+  <button class="btn primary q-next hidden" id="q-next" onclick="Quiz.next()">Next →</button>
+</div>
+
+<div id="screen-boss" class="screen">
+  <div class="boss-arena" id="boss-arena">
+    <div class="boss-portrait"><img id="boss-img" src="" alt="Boss"></div>
+    <h2 class="boss-name" id="boss-name"></h2>
+    <p class="boss-subtitle" id="boss-subtitle"></p>
+    <div class="boss-hp-bar"><div class="boss-hp" id="boss-hp"></div></div>
+    <p class="boss-hp-text" id="boss-hp-text">HP: 100/100</p>
+    <div class="player-hp-row">
+      <span>Your Lives: </span><span id="player-lives">❤️❤️❤️</span>
+    </div>
+    <div class="boss-rules">
+      <p>⚔️ Answer correctly to deal damage!</p>
+      <p>⏱ Timed — answer fast for bonus damage</p>
+      <p>💀 3 wrong answers = defeat</p>
+      <p>🏆 Need 80% accuracy to win</p>
+    </div>
+    <button class="btn danger big" id="boss-start-btn" onclick="Boss.start()">⚔️ FIGHT!</button>
+    <div class="boss-quiz hidden" id="boss-quiz">
+      <div class="q-img-wrap"><img id="boss-q-img" src="" alt=""></div>
+      <div class="q-text" id="boss-q-text"></div>
+      <div class="q-options" id="boss-q-options"></div>
+      <div class="q-feedback" id="boss-q-feedback"></div>
+      <span id="boss-timer" class="boss-timer">20</span>
+    </div>
+  </div>
+</div>
+
+<div id="screen-results" class="screen">
+  <div class="results-box">
+    <h2 id="res-title">Level Complete!</h2>
+    <div class="res-stars" id="res-stars"></div>
+    <div class="res-grid" id="res-grid"></div>
+    <div class="res-msg" id="res-msg"></div>
+    <div class="res-btns">
+      <button class="btn primary" id="res-retry" onclick="Results.retry()">🔄 Retry</button>
+      <button class="btn secondary" id="res-next" onclick="Results.next()">Next Level →</button>
+      <button class="btn accent" onclick="UI.go('levels')">🗺 Map</button>
+    </div>
+  </div>
+</div>
+
+<div id="screen-shop" class="screen">
+  <div class="scr-head">
+    <button class="btn back" onclick="UI.go('menu')">← Back</button>
+    <h2>🛒 Art Supply Shop</h2>
+    <div class="coins-display" id="shop-coins"></div>
+  </div>
+  <div class="shop-grid" id="shop-grid"></div>
+</div>
+
+<div id="screen-collection" class="screen">
+  <div class="scr-head">
+    <button class="btn back" onclick="UI.go('menu')">← Back</button>
+    <h2>🖼 Collection</h2>
+    <div class="coll-filters">
+      <button class="btn sm filt active" data-f="all" onclick="Collection.filter('all',this)">All</button>
+      <button class="btn sm filt" data-f="mastered" onclick="Collection.filter('mastered',this)">Mastered</button>
+      <button class="btn sm filt" data-f="seen" onclick="Collection.filter('seen',this)">Seen</button>
+      <button class="btn sm filt" data-f="unseen" onclick="Collection.filter('unseen',this)">Unseen</button>
+    </div>
+  </div>
+  <div class="coll-tabs" id="coll-tabs"></div>
+  <div class="coll-grid" id="coll-grid"></div>
+</div>
+
+<div id="screen-study" class="screen">
+  <div class="scr-head">
+    <button class="btn back" onclick="UI.go('menu')">← Back</button>
+    <h2>📖 Study Mode</h2>
+    <select id="study-unit-sel" onchange="Study.loadUnit(this.value)">
+      <option value="all">All Units</option>
+    </select>
+  </div>
+  <div class="study-nav">
+    <button class="btn secondary" onclick="Study.prev()">← Prev</button>
+    <span id="study-counter">1/250</span>
+    <button class="btn secondary" onclick="Study.next()">Next →</button>
+    <button class="btn accent" onclick="Study.shuffle()">🔀 Shuffle</button>
+  </div>
+  <div class="study-card" id="study-card" onclick="Study.flip()">
+    <div class="study-inner" id="study-inner">
+      <div class="study-front">
+        <img id="study-img" src="" alt="">
+        <div class="img-placeholder study-ph" id="study-ph">🎨 Click to see details</div>
+      </div>
+      <div class="study-back" id="study-back"></div>
+    </div>
+  </div>
+</div>
+
+<div id="screen-stats" class="screen">
+  <div class="scr-head">
+    <button class="btn back" onclick="UI.go('menu')">← Back</button>
+    <h2>📊 Your Stats</h2>
+  </div>
+  <div class="stats-body" id="stats-body"></div>
+</div>
+
+<!-- CREDITS SCREEN -->
+<div id="screen-credits" class="screen">
+  <div class="credits-page">
+    <button class="btn back" onclick="UI.go('menu')" style="margin-bottom:20px">← Back</button>
+    <h2>Credits & Attributions</h2>
+    <div class="credits-section">
+      <h3>About</h3>
+      <p>ArtQuest 250 is an independent study tool covering 250 essential art history works. This product is not affiliated with, endorsed by, or sponsored by the College Board or any educational institution.</p>
+    </div>
+    <div class="credits-section">
+      <h3>Image Sources</h3>
+      <p>All artwork images are sourced from <a href="https://commons.wikimedia.org" target="_blank">Wikimedia Commons</a> and are used under Creative Commons licenses (CC BY, CC BY-SA) or are in the public domain.</p>
+      <p>Individual image attributions are available for each work in the Collection view. Original photographers and uploaders retain their respective rights as specified by each image's license on Wikimedia Commons.</p>
+    </div>
+    <div class="credits-section">
+      <h3>Content</h3>
+      <p>Artwork data (titles, dates, artists, cultures, media) is factual public-domain information. Analysis questions and educational content are original.</p>
+    </div>
+    <div class="credits-section">
+      <h3>License</h3>
+      <p>&copy; 2026 ArtQuest 250. All original code and question content is proprietary. Artwork images are used under their respective Creative Commons or public domain licenses.</p>
+    </div>
+  </div>
+</div>
+
+<!-- GATE OVERLAY (shown when demo user tries to access paid content) -->
+<div id="gate-overlay" class="gate-overlay hidden">
+  <div class="gate-box">
+    <h2>🔒 Full Version Required</h2>
+    <p>Units 2-10 are available in the full version.</p>
+    <p class="price" style="font-size:1.5rem;color:var(--gold)">$8 — Lifetime Access</p>
+    <button class="btn primary" onclick="Paywall.purchase()">Unlock Everything</button>
+    <button class="btn secondary" onclick="document.getElementById('gate-overlay').classList.add('hidden')">Back to Demo</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal hidden" onclick="UI.closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-x" onclick="UI.hideModal()">&times;</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- CONFETTI -->
+<canvas id="confetti"></canvas>
+
+<script src="js/data.js?v=1"></script>
+<script src="js/images.js?v=1"></script>
+<script src="js/ap_questions.js?v=1"></script>
+<script src="js/game.js?v=1"></script>
+<script src="js/paywall.js?v=1"></script>
+</body>
+</html>
