@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ArtQuest 250 — Master Art History</title>
+<title>ArtQuest 250: Master Art History</title>
 <meta name="description" content="The ultimate art history study game. Master all 250 essential works with boss battles, analysis questions, and gamified learning.">
-<meta property="og:title" content="ArtQuest 250 — Master Art History">
+<meta property="og:title" content="ArtQuest 250: Master Art History">
 <meta property="og:description" content="Gamified study tool for the 250 essential art history works. Boss battles, flashcards, and exam-style analysis questions.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="css/styles.css?v=1">
 <style>
 /* Landing page styles */
-.landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 50%,#0a1a2e 100%)}
+.screen.landing.active{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 50%,#0a1a2e 100%)}
 .landing .logo{font-size:3.2rem;margin-bottom:0}
 .landing .tagline{color:var(--text2);font-size:1.1rem;max-width:500px;margin:10px auto 30px;line-height:1.6}
 .landing .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;max-width:700px;margin:20px auto 30px;text-align:left}
@@ -61,7 +61,7 @@
   <div class="features">
     <div class="feat"><h4>250 Works</h4><p>Every essential artwork with images, facts, dates, artists, and cultural context.</p></div>
     <div class="feat"><h4>Boss Battles</h4><p>Fight themed bosses at the end of each unit. Timed questions, bonus damage for streaks.</p></div>
-    <div class="feat"><h4>Exam-Style Questions</h4><p>Symbolism, context, function, patronage — the analysis questions that actually appear on exams.</p></div>
+    <div class="feat"><h4>Exam-Style Questions</h4><p>Symbolism, context, function, patronage, the analysis questions that actually appear on exams.</p></div>
     <div class="feat"><h4>Double-Pass Mastery</h4><p>Must pass each level twice in a row with 80%+ to prove you really know it.</p></div>
     <div class="feat"><h4>Study Flashcards</h4><p>Flip cards with all details. Shuffle, filter by unit, keyboard shortcuts.</p></div>
     <div class="feat"><h4>Progress Tracking</h4><p>Coins, stars, streaks, mastery percentages, and a full collection gallery.</p></div>
@@ -160,7 +160,7 @@
     </div>
     <div class="boss-rules">
       <p>⚔️ Answer correctly to deal damage!</p>
-      <p>⏱ Timed — answer fast for bonus damage</p>
+      <p>⏱ Timed: answer fast for bonus damage</p>
       <p>💀 3 wrong answers = defeat</p>
       <p>🏆 Need 80% accuracy to win</p>
     </div>
@@ -276,7 +276,7 @@
   <div class="gate-box">
     <h2>🔒 Full Version Required</h2>
     <p>Units 2-10 are available in the full version.</p>
-    <p class="price" style="font-size:1.5rem;color:var(--gold)">$8 — Lifetime Access</p>
+    <p class="price" style="font-size:1.5rem;color:var(--gold)">$8: Lifetime Access</p>
     <button class="btn primary" onclick="Paywall.purchase()">Unlock Everything</button>
     <button class="btn secondary" onclick="document.getElementById('gate-overlay').classList.add('hidden')">Back to Demo</button>
   </div>
