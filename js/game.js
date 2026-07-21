@@ -1097,9 +1097,10 @@ const Collection = {
       `;
       grid.appendChild(card);
       // Lazy load image from Wikipedia API
-      const cachedUrl = Img.cache[w.id];
+      const cachedUrl = Img.getUrl(w);
       if (cachedUrl) {
-        document.getElementById(imgId).src = cachedUrl;
+        const el = document.getElementById(imgId);
+        if (el) el.src = cachedUrl;
       } else {
         Img.resolve(w).then(url => {
           const el = document.getElementById(imgId);
